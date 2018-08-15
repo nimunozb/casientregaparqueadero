@@ -19,35 +19,31 @@ public class RobotBase
             
             //Direction.NORTH, EAST, SOUTH, WEST
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
-            estudiante = new Robot(objetos,0, 2, Direction.EAST,10);
-            
-	    //Mover una interseccion en el sentido al cual este apuntando el objeto.
-            estudiante.move ();
-            
-            //Girar a la izquierda
+            estudiante = new Robot(objetos,1, 2, Direction.SOUTH,10);
+            for (int a=0;a<3;a++){
+               estudiante.turnLeft(); }
+	    estudiante.move();
             estudiante.turnLeft();
-            
-            //Tomando decisiones, Si puedo tomar un Thing
-            boolean puedeTomar = estudiante.canPickThing();
-            
-            //Tomar un Thing
-            if(puedeTomar == true)
-               estudiante.pickThing();
-            
-            //Especifica el numero de Thing que tiene en robot en el bolso
-            int numeroThings = estudiante.countThingsInBackpack();
-            
-            //Poner Thing, se debe validar que tenga things en el bolso
-            estudiante.putThing();
-                       
-            //Si el frente esta libre de Wall
-            estudiante.frontIsClear();
-            
-            //Invocando una funcion
-            creacionFuncion(4);
-            
-            //Toman un Thing
-            estudiante.pickThing();
+            estudiante.move();
+            estudiante.turnLeft();
+            estudiante.move();
+           boolean a= estudiante.canPickThing();
+             
+            if(a==true){
+                
+         estudiante.pickThing();
+        }
+             for (int b=0;b<2;b++){
+               estudiante.turnLeft(); }
+             estudiante.move();
+              for (int c=0;c<3;c++){
+               estudiante.turnLeft(); }
+              estudiante.move();
+               for (int d=0;d<3;d++){
+               estudiante.turnLeft(); }
+            estudiante.move();
+             for (int e=0;e<3;e++){
+               estudiante.turnLeft(); }
             
             
 	}
@@ -56,5 +52,6 @@ public class RobotBase
             for (int i = 0; i < parametroEntrada; i++) 
                 estudiante.move();
         }
+
 }
 
