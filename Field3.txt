@@ -1,0 +1,82 @@
+Harvest a Field
+# first street, first avenue, num streets, num avenues showing 
+0 0 8 8
+# intersection size (in pixels) 
+38
+# things
+   becker.robots.Thing 1 2
+    becker.robots.Thing 1 3
+    becker.robots.Thing 1 5
+ becker.robots.Thing 2 1
+ becker.robots.Thing 2 4
+ becker.robots.Thing 3 2
+ becker.robots.Thing 3 3
+ becker.robots.Thing 3 5
+ becker.robots.Thing 4 1 
+becker.robots.Thing 4 4
+ becker.robots.Thing 5 2
+ becker.robots.Thing 5 3
+ becker.robots.Thing 5 5
+ 
+
+
+# wall
+        
+   becker.robots.Wall 1 1 Direction.WEST
+   becker.robots.Wall 2 1 Direction.WEST
+   becker.robots.Wall 3 1 Direction.WEST
+   becker.robots.Wall 4 1 Direction.WEST
+   becker.robots.Wall 5 1 Direction.WEST
+
+   becker.robots.Wall 1 1 Direction.NORTH
+   becker.robots.Wall 1 2 Direction.NORTH
+   becker.robots.Wall 1 3 Direction.NORTH
+   becker.robots.Wall 1 4 Direction.NORTH
+   becker.robots.Wall 1 5 Direction.NORTH
+
+   becker.robots.Wall 5 3 Direction.SOUTH
+   becker.robots.Wall 5 2 Direction.SOUTH
+   
+   becker.robots.Wall 5 4 Direction.SOUTH
+   becker.robots.Wall 5 5 Direction.SOUTH
+  
+   becker.robots.Wall 1 5 Direction.EAST
+   becker.robots.Wall 2 5 Direction.EAST
+   becker.robots.Wall 3 5 Direction.EAST
+   becker.robots.Wall 4 5 Direction.EAST
+   becker.robots.Wall 5 5 Direction.EAST
+
+
+  
+   becker.robots.Wall 1 7 Direction.WEST
+   becker.robots.Wall 2 7 Direction.WEST
+   becker.robots.Wall 3 7 Direction.WEST
+   becker.robots.Wall 4 7 Direction.WEST
+   becker.robots.Wall 5 7 Direction.WEST
+
+   becker.robots.Wall 1 7 Direction.NORTH
+   becker.robots.Wall 1 8 Direction.NORTH
+   becker.robots.Wall 1 9 Direction.NORTH
+   becker.robots.Wall 1 10 Direction.NORTH
+   becker.robots.Wall 1 11 Direction.NORTH
+
+  
+   becker.robots.Wall 5 8 Direction.SOUTH
+   becker.robots.Wall 5 9 Direction.SOUTH
+   becker.robots.Wall 5 10 Direction.SOUTH
+   becker.robots.Wall 5 11 Direction.SOUTH
+  
+   becker.robots.Wall 1 11 Direction.EAST
+   becker.robots.Wall 2 11 Direction.EAST
+   becker.robots.Wall 3 11 Direction.EAST
+   becker.robots.Wall 4 11 Direction.EAST
+   becker.robots.Wall 5 11 Direction.EAST
+
+    
+  
+   
+   
+
+
+
+
