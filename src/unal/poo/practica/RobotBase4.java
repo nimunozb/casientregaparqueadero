@@ -14,7 +14,7 @@ public class RobotBase4
         public static  boolean matriz [][] = new boolean[5][4];
 	public static void main (String[] args){
             //Declarar la creacion de la ciudad
-            objetos = new City("Field4.txt");
+            objetos = new City("Field5.txt");
 	    objetos.showThingCounts(true);
             
             //Direction.NORTH, EAST, SOUTH, WEST
