@@ -23,7 +23,7 @@ public class RobotBase6
            
         
           recogerCarro(3);
-          llevarcarro();
+          //llevarcarro();
           dejarcarro(3);
            
            
@@ -66,14 +66,33 @@ public class RobotBase6
                 voltear(270);
                 correr(estudiante.getAvenue()-bobo.getCarrera());
                 voltear(270);
+             if (estudiante.getAvenue()<bobo.getCarrera()) {
+               voltear(90);
+               correr(bobo.getCarrera()-estudiante.getAvenue());
+               voltear(90);
             }
         }
-
-   public static void llevarcarro(){
+        }
+   public static void llevarcarro(int c,boolean l){
+       if(estudiante.getAvenue()==10&&l==true&&c==1){
+       voltear(270);
+       correr(9);
+       voltear(270);}
+       if(estudiante.getAvenue()==10&&l==true&&c==2){
+       voltear(270);
+       correr(6);
+       voltear(270);}
+       if(estudiante.getAvenue()==10&&l==true&&c==3){
+       voltear(270);
+       correr(3);
+       voltear(270);}
+       
+       
+       if (l==false){
        int a= estudiante.getAvenue();
        voltear(90);
        correr(10-a);
-       voltear(90);
+       voltear(90);}
        
    }
   public static void dejarcarro(int carrosadespazar){
@@ -91,7 +110,47 @@ public class RobotBase6
       
   }
   
-  public  void normativa(int seccion,String k){
+  public static void normativa(int delta,int celda){
+      switch(celda){
+          case 1: celda=1;break;
+          case 4:celda=2;break;
+          case 7:celda=3;break;
+         }
+      switch(delta){
+          case 6:
+          recogerCarro(1);llevarcarro(0,false);dejarcarro(4);
+          llevarcarro(celda,true);
+           recogerCarro(2);llevarcarro(0,false);dejarcarro(3);
+          llevarcarro(celda,true);
+           recogerCarro(3);llevarcarro(0,false);dejarcarro(2);
+          llevarcarro(celda,true);
+          recogerCarro(4);llevarcarro(0,false);dejarcarro(1);
+          llevarcarro(celda,true);break;
+          
+          case 5:recogerCarro(2);llevarcarro(0,false);dejarcarro(4);
+          llevarcarro(celda,true);
+           recogerCarro(3);llevarcarro(0,false);dejarcarro(3);
+          llevarcarro(celda,true);
+          recogerCarro(4);llevarcarro(0,false);dejarcarro(2);
+          llevarcarro(celda,true);break;
+          
+          case 4:
+           recogerCarro(3);llevarcarro(0,false);dejarcarro(4);
+          llevarcarro(celda,true);
+          recogerCarro(4);llevarcarro(0,false);dejarcarro(3);
+          llevarcarro(celda,true);break;
+          
+          case 3:recogerCarro(4);llevarcarro(0,false);dejarcarro(4);
+          llevarcarro(celda,true);break;
+      
+      
+      }
+          
+      
+      
+  }
+  
+  public  void sacarVehiculo(int seccion,String k){
     Posicion z = this.parqueadero.posicionesDisponibles();
     Posicion ubicacion = null;
      if(z==null){System.out.println("No hay espacios disponibles para parquear");}
@@ -104,6 +163,8 @@ public class RobotBase6
        voltear(180);
        recogerCarro(estudiante.getStreet()-ubicacion.getCalle());
       }
+      acoplamiento(ubicacion);
+      normativa(estudiante.getStreet()-ubicacion.getCalle(),ubicacion.getCarrera());
               
     
   
