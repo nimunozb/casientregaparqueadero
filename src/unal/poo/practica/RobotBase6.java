@@ -11,6 +11,7 @@ public class RobotBase6
        //variables estaticas
         public static City objetos;
         public static Robot estudiante;
+        Parqueadero parqueadero=new Parqueadero(); 
 	public static void main (String[] args){
             //Declarar la creacion de la ciudad
             objetos = new City("Field6.txt");
@@ -56,6 +57,17 @@ public class RobotBase6
             //pick athing
             
             correr(carrosadesplazar+2);}
+        
+        public static void acoplamiento(Posicion bobo){
+            if(estudiante.getAvenue()==bobo.getCarrera()){
+                voltear(180);
+            }
+            if (estudiante.getAvenue()>bobo.getCarrera()){
+                voltear(270);
+                correr(estudiante.getAvenue()-bobo.getCarrera());
+                voltear(270);
+            }
+        }
 
    public static void llevarcarro(){
        int a= estudiante.getAvenue();
@@ -79,10 +91,28 @@ public class RobotBase6
       
   }
   
-  public static void normativa(int seccion,Vehiculo z){
-     Posicion x= z.getPosicion();
-     
+  public  void normativa(int seccion,String k){
+    Posicion z = this.parqueadero.posicionesDisponibles();
+    Posicion ubicacion = null;
+     if(z==null){System.out.println("No hay espacios disponibles para parquear");}
+      for (int i = 0; i < 10; i++) {
+          for (int j = 0; j < 10; j++) {
+           if(parqueadero.estacionamientos[i][j].getPlaca().equals(k)){
+               ubicacion= parqueadero.estacionamientos[i][j].getPosicion();
+           }}}
+      if (ubicacion.getCarrera()==estudiante.getAvenue()){
+       voltear(180);
+       recogerCarro(estudiante.getStreet()-ubicacion.getCalle());
+      }
+              
+    
+  
+  
+  
+  
   }
+
+   
 
 
 
