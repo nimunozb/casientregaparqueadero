@@ -25,10 +25,13 @@ public class RobotBase6
             Parqueadero parqueadero=new Parqueadero();
            Vehiculo veiculo1=new Vehiculo("UQD2");
             Vehiculo veiculo2=new Vehiculo("UQD8");
-          ingresarVehivulo(parqueadero,veiculo1);
-          
-            ingresarVehivulo(parqueadero,veiculo2);
-          //recogerCarro(5,false);  
+             Vehiculo veiculo3=new Vehiculo("UQD81");
+          long k=0;
+             ingresarVehivulo(parqueadero,veiculo1,k);
+          ingresarVehivulo(parqueadero,veiculo2,k);
+          ingresarVehivulo(parqueadero,veiculo3,k);
+           // sacarVehiculo(parqueadero,1,"UQD2");
+         
            
            
             
@@ -40,13 +43,12 @@ public class RobotBase6
                 case 270:estudiante.turnLeft();estudiante.turnLeft();estudiante.turnLeft();break;
                 default:System.out.println("agulo incorrecto"); ;break;
             } }  
-           public static  void correr(int a){
+        public static  void correr(int a){
                for (int i = 0; i < a; i++) {
                    estudiante.move();
                }
             
         }  
-        
         public static void recogerCarro(int carrosadesplazar,boolean k){
             
             correr(1);
@@ -61,41 +63,40 @@ public class RobotBase6
             if (k==true){estudiante.pickThing();}
             else{estudiante.putThing();}
             correr(carrosadesplazar+1);}
-        
         public static void acoplamiento(Posicion bobo){
             
-           switch(bobo.getCarrera()){
-               case 0: bobo.setCarrera(bobo.getCarrera()+1);break;
-               case 1: bobo.setCarrera(bobo.getCarrera()+3);break;
-               case 2: bobo.setCarrera(bobo.getCarrera()+5);break;
+           switch(bobo.getCalle()){
+               case 0: bobo.setCalle(bobo.getCalle()+1);break;
+               case 1: bobo.setCalle(bobo.getCalle()+3);break;
+               case 2: bobo.setCalle(bobo.getCalle()+5);break;
                default: System.out.println("no es reconocible la posicion");break;}
             
             if(estudiante.getDirection().equals(NORTH)){
-                System.out.println("north");
-                 if(estudiante.getAvenue()==bobo.getCarrera()){}
-                else{ if (estudiante.getAvenue()>bobo.getCarrera()){
+                System.out.println(estudiante.getDirection());
+                 if(estudiante.getAvenue()==bobo.getCalle()){}
+                else{ if (estudiante.getAvenue()>bobo.getCalle()){
                 voltear(90);
-                correr(estudiante.getAvenue()-bobo.getCarrera());
+                correr(estudiante.getAvenue()-bobo.getCalle());
                 voltear(270);}
-                else { if (estudiante.getAvenue()<bobo.getCarrera()) {
+                else { if (estudiante.getAvenue()<bobo.getCalle()) {
                          voltear(270);
-                           correr(bobo.getCarrera()-estudiante.getAvenue());
+                           correr(bobo.getCalle()-estudiante.getAvenue());
                               voltear(90);
-            }}}
+            }}}}
             if (estudiante.getDirection().equals(SOUTH)){
-                System.out.println("south");//no se si funcione
-               if(estudiante.getAvenue()==bobo.getCarrera()){
+                System.out.println(estudiante.getDirection());//no se si funcione
+               if(estudiante.getAvenue()==bobo.getCalle()){
                 voltear(180);}
-               else { if (estudiante.getAvenue()>bobo.getCarrera()){
+               else { if (estudiante.getAvenue()>bobo.getCalle()){
                      voltear(270);
-                      correr(estudiante.getAvenue()-bobo.getCarrera());
+                      correr(estudiante.getAvenue()-bobo.getCalle());
                        voltear(270);}
-               else{ if (estudiante.getAvenue()<bobo.getCarrera()) {
+               else{ if (estudiante.getAvenue()<bobo.getCalle()) {
                           voltear(90);
-                            correr(bobo.getCarrera()-estudiante.getAvenue());
+                            correr(bobo.getCalle()-estudiante.getAvenue());
                               voltear(90);
-                              }}}}}}
-   public static void llevarcarro(int c,boolean l){
+                              }}}}}
+        public static void llevarcarro(int c,boolean l){
        if(estudiante.getAvenue()==10&&l==true&&c==1){
          voltear(270);
            correr(9);
@@ -115,7 +116,7 @@ public class RobotBase6
                   voltear(90);}
        
    }
-  public static void dejarcarro(int carrosadespazar){
+        public static void dejarcarro(int carrosadespazar){
       correr(2);
       voltear(270);
       correr(carrosadespazar-1);
@@ -129,8 +130,7 @@ public class RobotBase6
       correr(3);
       
   }
-  
-  public static void normativa(int delta,int celda){
+        public static void normativa(int delta,int celda){
       switch(celda){
           case 1: celda=1;break;
           case 4:celda=2;break;
@@ -169,26 +169,23 @@ public class RobotBase6
       
       
   }
-  
-  public  void sacarVehiculo(Parqueadero f,int seccion,String k){
+        public static void sacarVehiculo(Parqueadero f,int seccion,String k){
     
-    Posicion ubicacion = null;
-     
-      for (int i = 0; i < 5; i++) {
-          for (int j = 0; j < 3; j++) {
-           if(f.estacionamientos[i][j].getPlaca().equals(k)){
-               ubicacion= f.estacionamientos[i][j].getPosicion();
-        acoplamiento(ubicacion);
-      normativa(estudiante.getStreet()-ubicacion.getCalle(),ubicacion.getCarrera());
-      }}}}
+      //acoplamiento(f.getEstacionamientos()[z][h].getPosicion());
+      //normativa(estudiante.getStreet()-f.getEstacionamientos()[z][h].getPosicion().getCalle(),f.getEstacionamientos()[z][h].getPosicion().getCarrera());
+      
+      }
 
-   public static void ingresarVehivulo(Parqueadero f,Vehiculo c){
-       Posicion z = f.posicionesDisponibles();
-       if(z==null){System.out.println("No hay espacios disponibles para parquear");}
-       else{ f.estacionamientos[z.getCalle()][z.getCarrera()]=c;
+   public static void ingresarVehivulo(Parqueadero f,Vehiculo c,long frecuencia){
+       
+       if(f.posicionesDisponibles()==null){System.out.println("No hay espacios disponibles para parquear");}
+       else{ 
        System.out.println("Ingreso el vehiculo con placa "+c.getPlaca());
-        acoplamiento(z);
-        recogerCarro(5-z.getCalle(),false);
+           System.out.println(f.posicionesDisponibles().getCalle());
+           System.out.println(f.posicionesDisponibles().getCarrera());
+        acoplamiento(f.posicionesDisponibles());
+        recogerCarro(5-f.posicionesDisponibles().getCarrera(),false);
+        f.getEstacionamientos()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=c;
          
        
        }}  
