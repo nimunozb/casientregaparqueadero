@@ -24,7 +24,7 @@ public class RobotBase6
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
             estudiante = new Robot(objetos,7, 1, Direction.NORTH,1999);
             Parqueadero parqueadero=new Parqueadero();
-            Vehiculo vehiculo =new Vehiculo("lamonda1");
+            Vehiculo vehiculo =new Vehiculo();
              Ingresos ingreso=new Ingresos();
             
               
@@ -33,15 +33,16 @@ public class RobotBase6
             long tiempodeabertura=0;
             int a=0;
             int numerodeserie=0;
+          
        while(!quit){int random=seleccionAleatoria(2)%2;
             if(a<=6){
-               Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
-                ingresarVehivulo(parqueadero,c,tiempodeabertura);
+               vehiculo=asignacionVehiculos(vehiculo,numerodeserie,parqueadero);
+                ingresarVehivulo(parqueadero,vehiculo,tiempodeabertura);
                  a++;
              numerodeserie++;}
       else if (random==1){ System.out.println(random);
-                Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
-                ingresarVehivulo(parqueadero,c,tiempodeabertura);
+                vehiculo=asignacionVehiculos(vehiculo,numerodeserie,parqueadero);
+                ingresarVehivulo(parqueadero,vehiculo,tiempodeabertura);
                 numerodeserie++;
                  if(numerodeserie==15){
                    numerodeserie=0;}
@@ -57,8 +58,9 @@ public class RobotBase6
         
    
        
-      public static Vehiculo asignacionVehiculos(Vehiculo vehiculo,int numerodeserie){
+      public static Vehiculo asignacionVehiculos(Vehiculo vehiculo,int numerodeserie,Parqueadero f){
        vehiculo.setPlaca("UQD"+numerodeserie);
+       vehiculo.setPosicion(f.posicionesDisponibles());
        return vehiculo;}
            
         public static int seleccionAleatoria(int a){
