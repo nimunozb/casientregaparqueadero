@@ -3,6 +3,7 @@ package unal.poo.practica;
 import becker.robots.*;
 import static becker.robots.Direction.NORTH;
 import static becker.robots.Direction.SOUTH;
+import java.util.Random;
 
 /** 
  * Practica de los conceptos de Programacion Estructurada
@@ -23,23 +24,43 @@ public class RobotBase6
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
             estudiante = new Robot(objetos,7, 1, Direction.NORTH,1999);
             Parqueadero parqueadero=new Parqueadero();
-            Simulacion  simulacion= new Simulacion();
-            Ingresos ingreso=new Ingresos();
+            Vehiculo vehiculo =new Vehiculo();
+             Ingresos ingreso=new Ingresos();
+           
   
            
             boolean quit=false;
             long tiempodeabertura=0;
             int a=0;
+            int numerodeserie=0;
             while(!quit){
             if(a<=9){
-               ingresarVehivulo(parqueadero,simulacion.asignacionVehiculos(),tiempodeabertura);
-            }else if (simulacion.seleccionAleatoria(2)==0){
-                 ingresarVehivulo(parqueadero,simulacion.asignacionVehiculos(),tiempodeabertura);
-                }else if(simulacion.seleccionAleatoria(2)==1){
-                sacarVehiculo(parqueadero,ingreso,simulacion,tiempodeabertura);
+               Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
+                ingresarVehivulo(parqueadero,c,tiempodeabertura);
+                numerodeserie++;
+            }else if (seleccionAleatoria(2)==0){
+                 Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
+                ingresarVehivulo(parqueadero,c,tiempodeabertura);
+                numerodeserie++;
+                }else if(seleccionAleatoria(2)==1){
+                sacarVehiculo(parqueadero,ingreso,tiempodeabertura);
             }
             tiempodeabertura++;
             }}
+        
+   
+       
+        public static Vehiculo asignacionVehiculos(Vehiculo vehiculo,int numerodeserie){
+         vehiculo.setPlaca("UQD"+numerodeserie);
+         return vehiculo;
+           }
+        public static int seleccionAleatoria(int a){
+        Random basealeatorio= new Random();
+        int naletorio=basealeatorio.nextInt(a);
+        return naletorio;
+    }
+ 
+    
         public static void voltear(int grados){
             switch(grados){
                 case 90:estudiante.turnLeft();break;
@@ -173,9 +194,9 @@ public class RobotBase6
       
       
   }
-        public static void sacarVehiculo(Parqueadero f,Ingresos ingreso,Simulacion simulacion,long tiempodeabertura){
+        public static void sacarVehiculo(Parqueadero f,Ingresos ingreso,long tiempodeabertura){
       String k=null;
-            switch(simulacion.seleccionAleatoria(20)){
+            switch(seleccionAleatoria(20)){
           case 1: k="UQD1";break; case 11: k="UQD11";break;
            case 2: k="UQD2";break; case 12: k="UQD12";break;
             case 3: k="UQD3";break; case 13: k="UQD13";break;
@@ -193,20 +214,21 @@ public class RobotBase6
       acoplamiento(f.buscarVehiculos(k));
       normativa(estudiante.getStreet()-f.buscarVehiculos(k).getCarrera(),f.buscarVehiculos(k).getCalle());
        ingreso.mostraringresos(f,f.buscarVehiculos(k),tiempodeabertura);
-       simulacion.vehiculosnullos(k);
+       f.getEstacionamientos()[f.buscarVehiculos(k).getCalle()][f.buscarVehiculos(k).getCarrera()]=null;
+      
       
       }}
-        public static void ingresarVehivulo(Parqueadero f,Vehiculo c,long frecuencia){
+        public static void ingresarVehivulo(Parqueadero f,Vehiculo vehiculo,long frecuencia){
        
        if(f.posicionesDisponibles()==null){System.out.println("No hay espacios disponibles para parquear");}
        else{ 
       f.getTiempo()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=frecuencia;
-           System.out.println("Ingreso el vehiculo con placa "+c.getPlaca()+
+           System.out.println("Ingreso el vehiculo con placa "+vehiculo.getPlaca()+
                    " a las "+f.getTiempo()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]
                               +" horas de abrir el parqueadero");
         acoplamiento(f.posicionesDisponibles());
         recogerCarro(5-f.posicionesDisponibles().getCarrera(),false);
-        f.getEstacionamientos()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=c;
+        f.getEstacionamientos()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=vehiculo;
        
        
        }}  
