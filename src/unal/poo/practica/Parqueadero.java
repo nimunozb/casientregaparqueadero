@@ -51,11 +51,13 @@ public class Parqueadero {
             return null;
         }
   public Posicion buscarVehiculos(String k){ 
-       for (int i = 0; i < 3; i++) {
+      
+     for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
-                    if(this.estacionamientos[i][j].getPlaca().equals(k)){
+               if (this.estacionamientos[i][j]!=null){    
+                if(this.estacionamientos[i][j].getPlaca().equals(k)){
                        return this.estacionamientos[i][j].getPosicion();
-                    }
+                    }}
                 }
            }
        return null ;
