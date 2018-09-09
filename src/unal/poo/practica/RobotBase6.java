@@ -24,36 +24,43 @@ public class RobotBase6
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
             estudiante = new Robot(objetos,7, 1, Direction.NORTH,1999);
             Parqueadero parqueadero=new Parqueadero();
-            Vehiculo vehiculo =new Vehiculo();
+            Vehiculo vehiculo =new Vehiculo("lamonda1");
              Ingresos ingreso=new Ingresos();
-           
-  
-           
-            boolean quit=false;
+            
+              
+              
+          boolean quit=false;
             long tiempodeabertura=0;
             int a=0;
             int numerodeserie=0;
-            while(!quit){
-            if(a<=9){
+       while(!quit){int random=seleccionAleatoria(2)%2;
+            if(a<=6){
                Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
                 ingresarVehivulo(parqueadero,c,tiempodeabertura);
-                numerodeserie++;
-            }else if (seleccionAleatoria(2)==0){
-                 Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
+                 a++;
+             numerodeserie++;}
+      else if (random==1){ System.out.println(random);
+                Vehiculo c=asignacionVehiculos(vehiculo,numerodeserie);
                 ingresarVehivulo(parqueadero,c,tiempodeabertura);
                 numerodeserie++;
-                }else if(seleccionAleatoria(2)==1){
-                sacarVehiculo(parqueadero,ingreso,tiempodeabertura);
+                 if(numerodeserie==15){
+                   numerodeserie=0;}
+               
+      }else if(random==0){
+                    System.out.println(random);
+                sacarVehiculo(parqueadero,ingreso,numerodeserie,tiempodeabertura);
             }
             tiempodeabertura++;
-            }}
+            }
+        
+        }
         
    
        
-        public static Vehiculo asignacionVehiculos(Vehiculo vehiculo,int numerodeserie){
-         vehiculo.setPlaca("UQD"+numerodeserie);
-         return vehiculo;
-           }
+      public static Vehiculo asignacionVehiculos(Vehiculo vehiculo,int numerodeserie){
+       vehiculo.setPlaca("UQD"+numerodeserie);
+       return vehiculo;}
+           
         public static int seleccionAleatoria(int a){
         Random basealeatorio= new Random();
         int naletorio=basealeatorio.nextInt(a);
@@ -194,27 +201,29 @@ public class RobotBase6
       
       
   }
-        public static void sacarVehiculo(Parqueadero f,Ingresos ingreso,long tiempodeabertura){
-      String k=null;
-            switch(seleccionAleatoria(20)){
-          case 1: k="UQD1";break; case 11: k="UQD11";break;
-           case 2: k="UQD2";break; case 12: k="UQD12";break;
-            case 3: k="UQD3";break; case 13: k="UQD13";break;
-             case 4: k="UQD4";break; case 14: k="UQD14";break;
-              case 5: k="UQD5";break; case 15: k="UQD15";break;
-               case 6: k="UQD6";break; case 16: k="UQD16";break;
-                case 7: k="UQD7";break; case 17: k="UQD17";break;
-                 case 8: k="UQD8";break; case 18: k="UQD18";break;
-                  case 9: k="UQD9";break; case 19: k="UQD19";break;
-                   case 10: k="UQD10";break; case 20: k="UQD20";break;
-                }
-         if (f.buscarVehiculos(k)==null){
-                  System.out.println("Este vehiculo con placa "+k+" no esta en este parqueadero");
-       }else{
-      acoplamiento(f.buscarVehiculos(k));
-      normativa(estudiante.getStreet()-f.buscarVehiculos(k).getCarrera(),f.buscarVehiculos(k).getCalle());
-       ingreso.mostraringresos(f,f.buscarVehiculos(k),tiempodeabertura);
-       f.getEstacionamientos()[f.buscarVehiculos(k).getCalle()][f.buscarVehiculos(k).getCarrera()]=null;
+        public static void sacarVehiculo(Parqueadero f,Ingresos ingreso,int numerodeserie,long tiempodeabertura){
+      String k=null;System.out.println(numerodeserie);
+          switch(seleccionAleatoria(numerodeserie)){
+               
+     case 1: k="UQD1";break; case 11: k="UQD11";break;
+         case 2: k="UQD2";break; case 12: k="UQD12";break;
+         case 3: k="UQD3";break; case 13: k="UQD13";break;
+           case 4: k="UQD4";break; case 14: k="UQD14";break;
+            case 5: k="UQD5";break; case 0:k="UQD0";break;
+            case 6: k="UQD6";break; 
+             case 7: k="UQD7";break; 
+                 case 8: k="UQD8";break; 
+                  case 9: k="UQD9";break; 
+                   case 10: k="UQD10";break; 
+             }
+        
+   if (f.buscarVehiculos(f,k)==null){
+            System.out.println("Este vehiculo con placa "+k+" no esta en este parqueadero");
+   }else{
+      acoplamiento(f.buscarVehiculos(f,k));
+      normativa(estudiante.getStreet()-f.buscarVehiculos(f,k).getCarrera(),f.buscarVehiculos(f,k).getCalle());
+       ingreso.mostraringresos(f,f.buscarVehiculos(f,k),tiempodeabertura);
+       f.setEstacionamientos( f.buscarVehiculos(f,k).getCalle(),f.buscarVehiculos(f,k).getCarrera(),null);
       
       
       }}
@@ -228,7 +237,7 @@ public class RobotBase6
                               +" horas de abrir el parqueadero");
         acoplamiento(f.posicionesDisponibles());
         recogerCarro(5-f.posicionesDisponibles().getCarrera(),false);
-        f.getEstacionamientos()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=vehiculo;
+        f.setEstacionamientos(f.posicionesDisponibles().getCalle(),f.posicionesDisponibles().getCarrera(),vehiculo);
        
        
        }}  
