@@ -23,19 +23,23 @@ public class RobotBase6
             //Definicion de la ubicacion del robot, Ciudad, posicion, Direccion, Numero things en el bolso.
             estudiante = new Robot(objetos,7, 1, Direction.NORTH,1999);
             Parqueadero parqueadero=new Parqueadero();
-           Vehiculo veiculo1=new Vehiculo("UQD2");
-            Vehiculo veiculo2=new Vehiculo("UQD8");
-             Vehiculo veiculo3=new Vehiculo("UQD81");
-          long k=0;
-             ingresarVehivulo(parqueadero,veiculo1,k);
-          ingresarVehivulo(parqueadero,veiculo2,k);
-          ingresarVehivulo(parqueadero,veiculo3,k);
-           // sacarVehiculo(parqueadero,1,"UQD2");
-         
+            Simulacion  simulacion= new Simulacion();
+            Ingresos ingreso=new Ingresos();
+  
            
-           
-            
-	}
+            boolean quit=false;
+            long tiempodeabertura=0;
+            int a=0;
+            while(!quit){
+            if(a<=9){
+               ingresarVehivulo(parqueadero,simulacion.asignacionVehiculos(),tiempodeabertura);
+            }else if (simulacion.seleccionAleatoria(2)==0){
+                 ingresarVehivulo(parqueadero,simulacion.asignacionVehiculos(),tiempodeabertura);
+                }else if(simulacion.seleccionAleatoria(2)==1){
+                sacarVehiculo(parqueadero,ingreso,simulacion,tiempodeabertura);
+            }
+            tiempodeabertura++;
+            }}
         public static void voltear(int grados){
             switch(grados){
                 case 90:estudiante.turnLeft();break;
@@ -72,7 +76,7 @@ public class RobotBase6
                default: System.out.println("no es reconocible la posicion");break;}
             
             if(estudiante.getDirection().equals(NORTH)){
-                System.out.println(estudiante.getDirection());
+               // System.out.println(estudiante.getDirection());
                  if(estudiante.getAvenue()==bobo.getCalle()){}
                 else{ if (estudiante.getAvenue()>bobo.getCalle()){
                 voltear(90);
@@ -84,7 +88,7 @@ public class RobotBase6
                               voltear(90);
             }}}}
             if (estudiante.getDirection().equals(SOUTH)){
-                System.out.println(estudiante.getDirection());//no se si funcione
+              //  System.out.println(estudiante.getDirection());//no se si funcione
                if(estudiante.getAvenue()==bobo.getCalle()){
                 voltear(180);}
                else { if (estudiante.getAvenue()>bobo.getCalle()){
@@ -169,27 +173,44 @@ public class RobotBase6
       
       
   }
-        public static void sacarVehiculo(Parqueadero f,int seccion,String k){
-    
-      //acoplamiento(f.getEstacionamientos()[z][h].getPosicion());
-      //normativa(estudiante.getStreet()-f.getEstacionamientos()[z][h].getPosicion().getCalle(),f.getEstacionamientos()[z][h].getPosicion().getCarrera());
+        public static void sacarVehiculo(Parqueadero f,Ingresos ingreso,Simulacion simulacion,long tiempodeabertura){
+      String k=null;
+            switch(simulacion.seleccionAleatoria(20)){
+          case 1: k="UQD1";break; case 11: k="UQD11";break;
+           case 2: k="UQD2";break; case 12: k="UQD12";break;
+            case 3: k="UQD3";break; case 13: k="UQD13";break;
+             case 4: k="UQD4";break; case 14: k="UQD14";break;
+              case 5: k="UQD5";break; case 15: k="UQD15";break;
+               case 6: k="UQD6";break; case 16: k="UQD16";break;
+                case 7: k="UQD7";break; case 17: k="UQD17";break;
+                 case 8: k="UQD8";break; case 18: k="UQD18";break;
+                  case 9: k="UQD9";break; case 19: k="UQD19";break;
+                   case 10: k="UQD10";break; case 20: k="UQD20";break;
+                }
+         if (f.buscarVehiculos(k)==null){
+                  System.out.println("Este vehiculo con placa "+k+" no esta en este parqueadero");
+       }else{
+      acoplamiento(f.buscarVehiculos(k));
+      normativa(estudiante.getStreet()-f.buscarVehiculos(k).getCarrera(),f.buscarVehiculos(k).getCalle());
+       ingreso.mostraringresos(f,f.buscarVehiculos(k),tiempodeabertura);
+       simulacion.vehiculosnullos(k);
       
-      }
-
-   public static void ingresarVehivulo(Parqueadero f,Vehiculo c,long frecuencia){
+      }}
+        public static void ingresarVehivulo(Parqueadero f,Vehiculo c,long frecuencia){
        
        if(f.posicionesDisponibles()==null){System.out.println("No hay espacios disponibles para parquear");}
        else{ 
-       System.out.println("Ingreso el vehiculo con placa "+c.getPlaca());
-           System.out.println(f.posicionesDisponibles().getCalle());
-           System.out.println(f.posicionesDisponibles().getCarrera());
+      f.getTiempo()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=frecuencia;
+           System.out.println("Ingreso el vehiculo con placa "+c.getPlaca()+
+                   " a las "+f.getTiempo()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]
+                              +" horas de abrir el parqueadero");
         acoplamiento(f.posicionesDisponibles());
         recogerCarro(5-f.posicionesDisponibles().getCarrera(),false);
         f.getEstacionamientos()[f.posicionesDisponibles().getCalle()][f.posicionesDisponibles().getCarrera()]=c;
-         
+       
        
        }}  
-          
+           
                
                  
                  
